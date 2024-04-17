@@ -35,6 +35,7 @@ const postProd = async (req, res) => {
           fs.unlinkSync(compressedFilePath);
           res.json({
             message: "Product information and image uploaded successfully",
+            status:200,
           });
         } catch (error) {
           console.log(error);
