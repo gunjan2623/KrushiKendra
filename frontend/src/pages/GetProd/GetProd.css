@@ -1,0 +1,83 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto:wght@400;700&display=swap");
+
+:root {
+  --transXstrt: 0;
+  --transXend: 0;
+  --transYstrt: 0;
+  --transYend: 0;
+}
+
+.authcontainer {
+  display: flex;
+  margin: 5rem auto;
+  margin-top: 15rem;
+  width: 80%;
+  min-height: 80vh;
+  height: fit-content;
+  /* border: 4px solid black; */
+  border-radius: 4%;
+  /* position: relative; */
+
+  /* Double the width for the animation */
+}
+
+@keyframes moveLeft {
+  from {
+    transform: translate(var(--transXstrt), var(--transYstrt)) rotateY(180deg);
+    /* 0,0 */
+  }
+  to {
+    transform: translate(var(--transXend), var(--transYend)) rotateY(0deg);
+    /* 100,0 */
+  }
+}
+
+@keyframes moveRight {
+  from {
+    transform: translate(var(--transXstrt), var(--transYstrt)) rotateY(180deg);
+    /* 100,0 */
+  }
+  to {
+    transform: translate(var(--transXend), var(--transYend)) rotateY(0deg);
+    /* 0,0 */
+  }
+}
+@keyframes moveLeftcont {
+  from {
+    transform: translate(var(--transXstrt), var(--transYstrt)) rotateY(180deg);
+    /* 0,0 */
+  }
+  to {
+    transform: translate(var(--transXend), var(--transYend)) rotateY(0deg);
+    /* -100,0 */
+  }
+}
+
+@keyframes moveRightcont {
+  from {
+    transform: translate(var(--transXstrt), var(--transYstrt)) rotateY(180deg);
+    /* -100,0 */
+  }
+  to {
+    transform: translate(var(--transXend), var(--transYend)) rotateY(0deg);
+    /* 0,0 */
+  }
+}
+.animateLeft {
+  --transXend: 00%;
+  animation: moveLeft 0.5s linear forwards;
+}
+
+.animateRight {
+  --transXstrt: 00%;
+  animation: moveRight 0.5s linear forwards;
+}
+.animateLeftcont {
+  --transXend: 00%;
+  animation: moveLeftcont 0.5s linear forwards;
+}
+
+.animateRightcont {
+  --transXstrt: 00%;
+  animation: moveRightcont 0.5s linear forwards;
+}
