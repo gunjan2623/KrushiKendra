@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 function ChngPassword() {
