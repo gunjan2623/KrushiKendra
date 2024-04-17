@@ -13,7 +13,7 @@ function GetProd() {
     try {
       const { data } = await axios.get("http://localhost:5000/prodget");
       setProducts(data.products);
-      console.log(data.products[0].img.contentType);
+      // console.log(data.products[0].img.contentType);
     } catch (error) {
       console.log(error);
       toast.error("something went wrong");
@@ -35,8 +35,13 @@ function GetProd() {
             <div className="card m-2" style={{ width: "18rem" }} key={p._id}>
               <img
                 className="card-img-top"
-                src={`data:${p.img.contentType};base64,${p.img.data}`}
-                alt="Card image cap"
+                src={`data:${p.img.contentType};base64,${btoa(
+                  new Uint8Array(p.img.data.data).reduce(
+                    (data, byte) => data + String.fromCharCode(byte),
+                    ""
+                  )
+                )}`}
+                alt="Card image cap"
               />
 
               <div className="card-body">
