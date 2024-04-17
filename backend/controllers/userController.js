@@ -156,14 +156,27 @@ const loginUser = async (req, res) => {
 
 // PUT update user
 const updateUser = async (req, res) => {
-  const userId = await UserModel.findById(req.user.id);
+  const isVendor=req.body.isVendor;
+  let userId;
+  if(!isVendor){
+   userId = await UserModel.findById(req.user.id);}
+  else{
+    userId = await VendorModel.findById(req.user.id);
+  }
+ 
   const updatedUserInfo = req.body; // This should contain the updated user information
 
   try {
     // Find the user by ID and update the information
-    const user = await UserModel.findByIdAndUpdate(userId, updatedUserInfo, {
+    let user;
+    if(isVendor){
+      user = await VendorModel.findByIdAndUpdate(userId, updatedUserInfo, {
+        new: true,
+      });
+    }else{
+  user = await UserModel.findByIdAndUpdate(userId, updatedUserInfo, {
       new: true,
-    });
+    });}
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -176,7 +189,12 @@ const updateUser = async (req, res) => {
 
 // POST check Password
 const checkPass = async (req, res) => {
-  const user = await UserModel.findById(req.user.id);
+  let user;
+  if(!req.user.isVendor){
+  user = await UserModel.findById(req.user.id);}
+  else{
+    user = await VendorModel.findById(req.user.id);
+  }
   const password = req.body.password;
   try {
     if (!user) {
@@ -212,7 +230,11 @@ const resetPassword = async (req, res) => {
     }
 
     // Update user's password
-    const user = await UserModel.findOne({ Email: email });
+    let user;
+    if(req.body.isVendor){
+      user = await VendorModel.findOne({ Email: email})
+    }else{
+    user = await UserModel.findOne({ Email: email });}
    const hashedPassword = await bcrypt.hash(newPassword, 10);
     user.Password = hashedPassword;
     await user.save();
