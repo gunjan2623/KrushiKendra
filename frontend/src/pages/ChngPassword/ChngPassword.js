@@ -39,7 +39,7 @@ function ChngPassword() {
   const handlechngPass = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/email-send', { Email });
+      const response = await axios.post('http://localhost:5000/email-send', { Email ,isVendor: user.isVender});
       toast.success("Please check your Email Id!")
       setSend(true);
     }

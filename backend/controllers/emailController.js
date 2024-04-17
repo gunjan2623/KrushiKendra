@@ -5,7 +5,11 @@ const mailer = require('../controllers/mailer.js')
 // POST send email
 const sendEmail = async (req, res) => {
   try {
-    let data = await UserModel.findOne({ Email: req.body.Email });
+    let data ;
+    if(req.body.isVendor){
+      data = await VendorModel.findOne({ Email:req.body.Email });
+    }else{
+     data = await UserModel.findOne({ Email: req.body.Email });}
 
     const responseType = {};
     if (data) {
