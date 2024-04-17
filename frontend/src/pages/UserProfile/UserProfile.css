@@ -1,0 +1,34 @@
+.usercont{
+    display: flex; 
+    margin:auto;
+    margin-bottom: 2em;
+    border:2px solid black;
+    width:70%;
+    align-items: center;
+    justify-content: center;   
+}
+.usercont1{
+    margin:2em;
+    padding: 2em ;
+    background-color: #ece7e2;
+    /* display: flex; */
+}
+.userfield{
+border-bottom: 2px solid black;
+margin: 12px 0px;
+}
+
+.userimg{
+    display: flex;
+    border-radius: 50% ;
+    width:100px;
+    height:100px;
+    margin:auto;
+}
+.chkback{
+    position: fixed;
+    z-index: 1000000;
+    left:25%;
+    background-color: white;
+    border-radius:50%;
+}
