@@ -12,7 +12,7 @@ import defaultuser from "../../assests/defaultuser.jpg";
 
 const navitems = [
   { label: "Home", link: "/", no: "1", itemwid: "45px" },
-  // { label: "Buy", link: "/buy", no: "2", itemwid: "27px" },
+  { label: "Buy", link: "/buy", no: "2", itemwid: "27px" },
   // { label: "Sell", link: "/sell", no: "3", itemwid: "25px" },
   // { label: "About", link: "/about",no:"4", itemwid:"44px"},
 ];

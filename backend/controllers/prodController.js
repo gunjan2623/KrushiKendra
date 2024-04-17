@@ -43,6 +43,11 @@ const postProd = async (req, res) => {
         }
       }
 
+
+      const getprod = async (req, res) => {
+
+      }
       module.exports={
-          postProd
+          postProd,
+          getprod
       }
