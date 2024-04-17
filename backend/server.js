@@ -11,6 +11,7 @@ const connectDB = require("./config/db");
 
 const userRoutes = require("./routes/userRoutes.js");
 const emailRoutes = require("./routes/emailRoutes.js");
+const productRoutes = require("./routes/productRoutes.js");
 
 
 
@@ -35,7 +36,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 
-
+app.use(productRoutes);
 app.use(userRoutes);
 app.use(emailRoutes);
 

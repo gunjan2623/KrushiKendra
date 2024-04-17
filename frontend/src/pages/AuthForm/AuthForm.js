@@ -19,7 +19,8 @@ function AuthForm() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [changeSide, setChangeSide] = useState(false);
   const [content, setContent] = useState(false);
- 
+ const [isVendor, setVendor] = useState(false);
+
   const [UserName, setUserName] = useState("");
   const [Address, setAddress] = useState("");
   const [Email, setEmail] = useState("");
@@ -109,6 +110,7 @@ function AuthForm() {
         MobNo: mobNo,
         Password: Password,
         Address: Address,
+        isVendor: isVendor,
       };
       dispatch(register(formData));
 
@@ -121,6 +123,7 @@ function AuthForm() {
     const userData = {
       Email,
       Password,
+      isVendor
     }
 
     dispatch(login(userData))
@@ -175,7 +178,7 @@ function AuthForm() {
         >
           {!content ? (
             <div className="signindetails">
-              <p className="signinhead">Sign In!</p>
+              <p className="signinhead">{isVendor?'Vendor ':'Farmer '}Sign In!</p>
               <form onSubmit={handleLogin}>
                 <div className="detailcont">
                   <BiUserCircle className="usersignicon" size={24} />
@@ -205,6 +208,7 @@ function AuthForm() {
                 </div>
                 <div className="detailcont1">
                   <p onClick={() => { setForgetPass(true) }}>Forget Password?</p>
+                 {isVendor? <p onClick={() => { setVendor(false) }}>Are you Farmer?</p>:<p onClick={() => { setVendor(true) }}>Are you vendor?</p>}
                   <button type="submit" className="signinbut">
                     Sign In
                   </button>
@@ -214,7 +218,7 @@ function AuthForm() {
           ) : (
             <>
               <div className="signupmain">
-                <h1 className="signinhead upper">Sign Up</h1>
+                <h1 className="signinhead upper"> {isVendor ?'Vendor ':'Farmer '}Sign Up</h1>
                 <form onSubmit={handleSubmit}>
                   <div style={{ display: "flex" }}>
                     <div style={{ "marginBottom": "20px" }}>
@@ -366,6 +370,11 @@ function AuthForm() {
                       <label htmlFor="agree-to-terms">
                         I agree to your terms and conditions
                       </label>
+                      {!isVendor &&
+                  <p onClick={() => { setVendor(true) }}>Are you vendor?</p>
+                  }
+                  {isVendor &&
+                  <p onClick={() => { setVendor(false) }}>Are you Farmer?</p>}
                       <button
                         type="submit"
                         className="signinbut"

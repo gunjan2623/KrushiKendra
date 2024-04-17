@@ -1,4 +1,5 @@
 const UserModel = require('../model/UserModel');
+const VendorModel = require('../model/VendorModel');
 const otpModel = require('../model/otpModel');
 const bcrypt = require("bcryptjs");
 const fs = require("fs");
@@ -23,42 +24,60 @@ const postUser = async (req, res) => {
     const MobNo = req.body.MobNo;
     const Password = req.body.Password;
     const Address=req.body.Address;
-    console.log(req.body);
-    console.log(UserName,Email,MobNo,Password,Address);
+    const isVendor=req.body.isVendor;
 
 
-    if (!UserName || !Email || !Password) {
+    if (!UserName || !Email || !Password || !MobNo || !Address) {
       res.status(400);
-      throw new Error("Please add all fields");
+      console.log("Please add all fields");
     }
-
+if(!isVendor){
     const userExists = await UserModel.findOne({ Email });
     if (userExists) {
       res.status(400);
       throw new Error("User already exists!");
+      
+   
+    }}
+    else{
+      const userExists = await VendorModel.findOne({ Email });
+      if (userExists) {
+        res.status(400);
+        throw new Error("Vendor already exists!");
     }
-
+  }
     // Hash Password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(Password, salt);
 
   
 
-    // Resize and compress the image using sharp
   
 
     // Create user
-    const user = await UserModel.create({
+    let user;
+    if(!isVendor){
+    user = await UserModel.create({
       UserName,
       Email,
       Password: hashedPassword,
       MobNo,
       Address,
-    });
+    });}
+    else{
+       user = await VendorModel.create({
+        UserName,
+        Email,
+        Password: hashedPassword,
+        MobNo,
+        Address,
+      });
+    }
 
     // Return the user information and token
     res.json({
       message: "User information uploaded successfully",
+      isVendor:isVendor,
       _id: user._id,
       MobNo: user.MobNo,
       UserName: user.UserName,
@@ -67,7 +86,7 @@ const postUser = async (req, res) => {
       token: generateToken(user._id),
     });
   } catch (error) {
-    console.log(error);
+
     res
       .status(500)
       .json({ message: error + " Try with different Email Id!" });
@@ -107,12 +126,21 @@ const getUser = async (req, res) => {
 
 // POST login user
 const loginUser = async (req, res) => {
-  const { Email, Password } = req.body;
-
-  const user = await UserModel.findOne({ Email });
-  if (user && (await bcrypt.compare(Password, user.Password))) {
-    res.json({
-      message: "User login successful",
+  const { Email, Password,isVendor } = req.body;
+  let user,vendor;
+  if(isVendor){
+    user = await VendorModel.findOne({ Email
+  } );
+  vendor=true;
+  } 
+  else{
+  user = await UserModel.findOne({ Email });
+  vendor=false;
+  }
+    if (user && (await bcrypt.compare(Password, user.Password))) {
+      res.json({
+        message: "User login successful",
+       isVendor:vendor,
       _id: user._id,
       MobNo: user.MobNo,
       UserName: user.UserName,

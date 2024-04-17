@@ -143,6 +143,15 @@ function Navbar() {
                     
                         
                       <hr />
+                     
+                     
+                      <li> {user.isVendor && 
+                                              <RouterLink to="/addprod">
+                          <BiUserCircle className="small-screen" />
+                          <p>Add Product</p>
+                        </RouterLink>}
+                      </li>
+                      {user.isVendor && <hr/>}
                       <li onClick={handleLogout}><MdOutlineLogout className="small-screen" />Logout</li>
 
                     </ul></div></>}

@@ -10,7 +10,7 @@ import Navbar from "./components/Navbar/Navbar.js";
 import Footer from './components/Footer/Footer';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import AuthForm from './pages/AuthForm/AuthForm';
-
+import AddProd from './pages/AddProd/AddProd';
 import UserProfile from "./pages/UserProfile/UserProfile.js";
 
 function App() {
@@ -27,6 +27,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/userprofile" element={<UserProfile />} />            
             <Route path="/AuthForm" element={<AuthForm />} />
+            <Route path="/addprod" element={<AddProd />} />
 
             {/* <Route path="/chkpass" element={<ChkPassword />} /> */}
           </Routes>
