@@ -8,7 +8,8 @@ function ChngPassword() {
   const [newPass, setNewPass] = useState("");
   const [confNewPass, setConfNewPass] = useState("");
   const [Email, setEmail] = useState("");
-
+  const { user } = useSelector((state) => state.auth);
+const isVendor=user.isVendor;
 
   const handleOtpChk = async (e) => {
     e.preventDefault();
@@ -18,7 +19,7 @@ function ChngPassword() {
     }
 
     try {
-      const res = await axios.post('http://localhost:5000/respass', { email: Email, otpCode: Otp, newPassword: newPass });
+      const res = await axios.post('http://localhost:5000/respass', { email: Email, otpCode: Otp,isVendor, newPassword: newPass });
       if (res.data.statusText === 'Success') {
         toast.success("Password Changed!")
       }
