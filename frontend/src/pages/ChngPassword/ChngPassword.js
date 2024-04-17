@@ -10,7 +10,7 @@ function ChngPassword() {
   const [confNewPass, setConfNewPass] = useState("");
   const [Email, setEmail] = useState("");
   const { user } = useSelector((state) => state.auth);
-const isVendor=user.isVendor;
+
 
   const handleOtpChk = async (e) => {
     e.preventDefault();
@@ -18,9 +18,9 @@ const isVendor=user.isVendor;
       toast.error("Passwords do not match");
       return;
     }
-
+   
     try {
-      const res = await axios.post('http://localhost:5000/respass', { email: Email, otpCode: Otp,isVendor, newPassword: newPass });
+      const res = await axios.post('http://localhost:5000/respass', { email: Email, otpCode: Otp,isVendor: user.isVender, newPassword: newPass });
       if (res.data.statusText === 'Success') {
         toast.success("Password Changed!")
       }

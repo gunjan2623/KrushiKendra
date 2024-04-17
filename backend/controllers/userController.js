@@ -189,19 +189,26 @@ const updateUser = async (req, res) => {
 
 // POST check Password
 const checkPass = async (req, res) => {
-  let user;
-  if(!req.user.isVendor){
-  user = await UserModel.findById(req.user.id);}
+  let user1;
+  console.log(req.body);
+  if(!req.body.isVendor){
+    console.log('user',req.user);
+  user1 = await UserModel.findById(req.user.id);
+}
+
   else{
-    user = await VendorModel.findById(req.user.id);
+    console.log('user',req.user);
+
+    user1 = await VendorModel.findById(req.user.id);
+    console.log(user1);
   }
   const password = req.body.password;
   try {
-    if (!user) {
+    if (!user1) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const passwordMatch = await bcrypt.compare(password, user.Password); // Compare hashed password
+    const passwordMatch = await bcrypt.compare(password, user1.Password); // Compare hashed password
     if (passwordMatch) {
       res.json({ message: "Password matches" });
     } else {
