@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const ProductSchema = new mongoose.Schema({
   Vendor_Email: {
@@ -15,27 +15,26 @@ const ProductSchema = new mongoose.Schema({
   },
   filename: {
     type: String,
-    default: 'default',
-},
-img: {
+    default: "default",
+  },
+  img: {
     data: Buffer,
     contentType: String,
-
-},
+  },
   Vendor_address: {
     type: String,
     required: true,
   },
- Product_price: {
+  Product_price: {
     type: Number,
     required: true,
   },
- Product_quantity: {
+  Product_quantity: {
     type: Number,
     required: true,
   },
 });
 
-const ProductModel = mongoose.model('Product', ProductSchema);
+const ProductModel = mongoose.model("Product", ProductSchema);
 
 module.exports = ProductModel;

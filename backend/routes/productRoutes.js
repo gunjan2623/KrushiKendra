@@ -5,6 +5,6 @@ const upload = require("../controllers/multerStorage.js");
 
 router.post("/produpload", upload.single("image"), prodController.postProd);
 router.get("/prodget", prodController.getprod);
-// router.get("/prodget", prodController.getprod);
+// router.get("/photo", prodController.getprod);
 
 module.exports = router;
