@@ -14,3 +14,12 @@ npm install
 at KrushiKendra\
 
 npm run dev
+
+
+## APIs
+
+**To Get all Products:** http://localhost:5000/prodget
+
+**To Get Products by Product Category:** http://localhost:5000/prodget/products/{category_name}
+
+**To Get Products by Specific Vendor:** http://localhost:5000/prodget/vendor/{vendor_email}

@@ -66,7 +66,23 @@ const getprod = async (req, res) => {
     });
   }
 };
-module.exports = {
-  postProd,
-  getprod,
-};
+
+//added by prajwal
+const getprodByCategory = async(req,res)=>{
+  const Product_category = req.params.category;
+  const products =  await ProductModel.find({Product_category}).select("-img");
+  res.status(200).json(products);
+}
+const getprodByVendor = async(req,res)=>{
+  const Vendor_Email = req.params.vendor;
+  const products =  await ProductModel.find({Vendor_Email}).select("-img");
+  res.status(200).json(products);
+}
+
+module.exports={
+    postProd,
+    getprod,
+    getprodByCategory,
+    getprodByVendor
+}
+
