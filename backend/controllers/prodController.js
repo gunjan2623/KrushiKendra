@@ -8,8 +8,8 @@ const postProd = async (req, res) => {
 
     if (!name || !category || !vendorAddress || !price || !quantity || !email) {
       res.json({
-        status:400,
-      message:("Please add all fields")
+        status: 400,
+        message: "Please add all fields",
       });
     }
 
@@ -47,10 +47,7 @@ const postProd = async (req, res) => {
 //get all products
 const getprod = async (req, res) => {
   try {
-    const products = await ProductModel.find({})
-      .select("-photo")
-      .limit(12)
-      .sort({ createdAt: -1 });
+    const products = await ProductModel.find({}).select("-photo");
     res.status(200).send({
       success: true,
       countTotal: products.length,
@@ -68,21 +65,20 @@ const getprod = async (req, res) => {
 };
 
 //added by prajwal
-const getprodByCategory = async(req,res)=>{
+const getprodByCategory = async (req, res) => {
   const Product_category = req.params.category;
-  const products =  await ProductModel.find({Product_category}).select("-img");
+  const products = await ProductModel.find({ Product_category }).select("-img");
   res.status(200).json(products);
-}
-const getprodByVendor = async(req,res)=>{
+};
+const getprodByVendor = async (req, res) => {
   const Vendor_Email = req.params.vendor;
-  const products =  await ProductModel.find({Vendor_Email}).select("-img");
+  const products = await ProductModel.find({ Vendor_Email }).select("-img");
   res.status(200).json(products);
-}
+};
 
-module.exports={
-    postProd,
-    getprod,
-    getprodByCategory,
-    getprodByVendor
-}
-
+module.exports = {
+  postProd,
+  getprod,
+  getprodByCategory,
+  getprodByVendor,
+};

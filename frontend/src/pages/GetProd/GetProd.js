@@ -3,7 +3,7 @@ import "./GetProd.css"; // Your custom CSS file
 import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap CSS file
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { toast } from "react-hot-toast";
+import { toast } from "react-toastify";
 import CarLoader from "../../components/Spinners/CarLoader";
 
 function GetProd() {
@@ -28,8 +28,8 @@ function GetProd() {
     getAllProdcuts();
   }, []);
 
-  if (isLoading) { 
-    return <CarLoader/>;
+  if (isLoading) {
+    return <CarLoader />;
   }
 
   return (
@@ -55,6 +55,7 @@ function GetProd() {
                 <p className="card-text">{p.Product_category}</p>
                 <p className="card-text">{p.Product_price}</p>
                 <p className="card-text">{p.Vendor_address}</p>
+                <p className="card-text">{p.Product_quantity}</p>
               </div>
             </div>
           ))}
