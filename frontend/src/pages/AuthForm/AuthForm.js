@@ -44,8 +44,13 @@ function AuthForm() {
       toast.error(message);
     }
     if (isSuccess) {
+      if(user && user.status===400){
+      toast.error(user.message);
+    }
+      else if(user)
       toast.success("Welcome " + user.UserName + "!");
-      navigate(-1);
+    else
+      toast.error("Something went wrong");
     }
 
     dispatch(reset());

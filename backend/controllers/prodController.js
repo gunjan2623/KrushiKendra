@@ -7,8 +7,10 @@ const postProd = async (req, res) => {
     const { name, category, vendorAddress, price, quantity, email } = req.body;
 
     if (!name || !category || !vendorAddress || !price || !quantity || !email) {
-      res.status(400);
-      throw new Error("Please add all fields");
+      res.json({
+        status:400,
+      message:("Please add all fields")
+      });
     }
 
     const compressedFilePath = "uploads/compressed-" + req.file.filename;
