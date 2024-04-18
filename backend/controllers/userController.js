@@ -28,22 +28,29 @@ const postUser = async (req, res) => {
 
 
     if (!UserName || !Email || !Password || !MobNo || !Address) {
-      res.status(400);
-      console.log("Please add all fields");
+      res.json({
+        status:400,
+        message:("Please add all fields")
+      })
+     
     }
 if(!isVendor){
     const userExists = await UserModel.findOne({ Email });
     if (userExists) {
-      res.status(400);
-      throw new Error("User already exists!");
+      return res.json({
+
+      status:400,
+     message:("User already exists!")})
       
    
     }}
     else{
       const userExists = await VendorModel.findOne({ Email });
       if (userExists) {
-        res.status(400);
-        throw new Error("Vendor already exists!");
+        return res.json({
+          status:400,
+          message:("Vendor already exists!")
+        })
     }
   }
     // Hash Password
@@ -77,6 +84,7 @@ if(!isVendor){
     // Return the user information and token
     res.json({
       message: "User information uploaded successfully",
+      status:200,
       isVendor:isVendor,
       _id: user._id,
       MobNo: user.MobNo,
@@ -107,17 +115,17 @@ const getUser = async (req, res) => {
     if (user) {
       res.json({
         message: "User exists!",
+        status:200,
         _id: user._id,
         MobNo: user.MobNo,
         UserName: user.UserName,
         Email: user.Email,
         
-
-
       });
     } else {
-      res.status(400);
-      throw new Error("Invalid Credentials!");
+      res.json({
+      status:400,
+      message:"Invalid Credentials!"})
     }
   } catch (error) {
     res.status(500).json({ message: "Error: " + error.message });
@@ -140,6 +148,7 @@ const loginUser = async (req, res) => {
     if (user && (await bcrypt.compare(Password, user.Password))) {
       res.json({
         message: "User login successful",
+        status:200,
        isVendor:vendor,
       _id: user._id,
       MobNo: user.MobNo,
@@ -149,21 +158,36 @@ const loginUser = async (req, res) => {
       token: generateToken(user._id),
     });
   } else {
-    res.status(400);
-    throw new Error("Invalid Credentials!");
+    res.json({
+      status:400,
+      message:"Invalid Credentials!"
+    })
   }
 }
 
 // PUT update user
 const updateUser = async (req, res) => {
-  const userId = await UserModel.findById(req.user.id);
+  const isVendor=req.body.isVendor;
+  let userId;
+  if(!isVendor){
+   userId = await UserModel.findById(req.user.id);}
+  else{
+    userId = await VendorModel.findById(req.user.id);
+  }
+ 
   const updatedUserInfo = req.body; // This should contain the updated user information
 
   try {
     // Find the user by ID and update the information
-    const user = await UserModel.findByIdAndUpdate(userId, updatedUserInfo, {
+    let user;
+    if(isVendor){
+      user = await VendorModel.findByIdAndUpdate(userId, updatedUserInfo, {
+        new: true,
+      });
+    }else{
+  user = await UserModel.findByIdAndUpdate(userId, updatedUserInfo, {
       new: true,
-    });
+    });}
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -176,14 +200,23 @@ const updateUser = async (req, res) => {
 
 // POST check Password
 const checkPass = async (req, res) => {
-  const user = await UserModel.findById(req.user.id);
+  let user1;
+  
+  if(!req.body.isVendor){
+  user1 = await UserModel.findById(req.user.id);
+}
+
+  else{
+    user1 = await VendorModel.findById(req.user.id);
+    
+  }
   const password = req.body.password;
   try {
-    if (!user) {
+    if (!user1) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const passwordMatch = await bcrypt.compare(password, user.Password); // Compare hashed password
+    const passwordMatch = await bcrypt.compare(password, user1.Password); // Compare hashed password
     if (passwordMatch) {
       res.json({ message: "Password matches" });
     } else {
@@ -212,7 +245,11 @@ const resetPassword = async (req, res) => {
     }
 
     // Update user's password
-    const user = await UserModel.findOne({ Email: email });
+    let user;
+    if(req.body.isVendor){
+      user = await VendorModel.findOne({ Email: email})
+    }else{
+    user = await UserModel.findOne({ Email: email });}
    const hashedPassword = await bcrypt.hash(newPassword, 10);
     user.Password = hashedPassword;
     await user.save();

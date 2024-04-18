@@ -4,19 +4,22 @@ import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap CSS file
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import CarLoader from "../../components/Spinners/CarLoader";
 
 function GetProd() {
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); // Add this line
 
   //getall product
   const getAllProdcuts = async () => {
     try {
       const { data } = await axios.get("http://localhost:5000/prodget");
       setProducts(data.products);
-      // console.log(data.products[0].img.contentType);
+      setIsLoading(false); // Add this line
     } catch (error) {
       console.log(error);
       toast.error("something went wrong");
+      setIsLoading(false); // Add this line
     }
   };
 
@@ -25,13 +28,16 @@ function GetProd() {
     getAllProdcuts();
   }, []);
 
+  if (isLoading) { 
+    return <CarLoader/>;
+  }
+
   return (
     <>
       <div className="col-md-20">
         <h1 className="text-center">All Products List</h1>
         <div className="d-flex">
           {products?.map((p) => (
-            // <Link to={}
             <div className="card m-2" style={{ width: "18rem" }} key={p._id}>
               <img
                 className="card-img-top"
@@ -41,7 +47,7 @@ function GetProd() {
                     ""
                   )
                 )}`}
-                alt="Card image cap"
+                alt="Card_image_cap"
               />
 
               <div className="card-body">

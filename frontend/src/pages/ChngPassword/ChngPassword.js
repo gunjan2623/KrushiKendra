@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 function ChngPassword() {
@@ -8,6 +9,7 @@ function ChngPassword() {
   const [newPass, setNewPass] = useState("");
   const [confNewPass, setConfNewPass] = useState("");
   const [Email, setEmail] = useState("");
+  const { user } = useSelector((state) => state.auth);
 
 
   const handleOtpChk = async (e) => {
@@ -16,9 +18,9 @@ function ChngPassword() {
       toast.error("Passwords do not match");
       return;
     }
-
+   
     try {
-      const res = await axios.post('http://localhost:5000/respass', { email: Email, otpCode: Otp, newPassword: newPass });
+      const res = await axios.post('http://localhost:5000/respass', { email: Email, otpCode: Otp,isVendor: user.isVender, newPassword: newPass });
       if (res.data.statusText === 'Success') {
         toast.success("Password Changed!")
       }
@@ -37,7 +39,7 @@ function ChngPassword() {
   const handlechngPass = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/email-send', { Email });
+      const response = await axios.post('http://localhost:5000/email-send', { Email ,isVendor: user.isVender});
       toast.success("Please check your Email Id!")
       setSend(true);
     }

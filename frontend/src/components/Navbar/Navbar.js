@@ -41,6 +41,9 @@ function Navbar() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if(user!==null &&user.status===400){
+      setUserIconShow(false);
+    }
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
 
@@ -67,7 +70,7 @@ function Navbar() {
       clearTimeout(timer);
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [prevScrollPos]);
+  }, [prevScrollPos,user]);
 
   const OpenNav = () => {
     NavOpen === "" ? setNavOpen("toggled") : setNavOpen("");
@@ -85,6 +88,7 @@ function Navbar() {
   };
   const handleLogout = () => {
     dispatch(logout());
+    navigate("/AuthForm");
   };
   const handleMouseEnter = () => {
     setIsHovered(true);

@@ -7,8 +7,10 @@ const postProd = async (req, res) => {
     const { name, category, vendorAddress, price, quantity, email } = req.body;
 
     if (!name || !category || !vendorAddress || !price || !quantity || !email) {
-      res.status(400);
-      throw new Error("Please add all fields");
+      res.json({
+        status:400,
+      message:("Please add all fields")
+      });
     }
 
     const compressedFilePath = "uploads/compressed-" + req.file.filename;
@@ -64,7 +66,23 @@ const getprod = async (req, res) => {
     });
   }
 };
-module.exports = {
-  postProd,
-  getprod,
-};
+
+//added by prajwal
+const getprodByCategory = async(req,res)=>{
+  const Product_category = req.params.category;
+  const products =  await ProductModel.find({Product_category}).select("-img");
+  res.status(200).json(products);
+}
+const getprodByVendor = async(req,res)=>{
+  const Vendor_Email = req.params.vendor;
+  const products =  await ProductModel.find({Vendor_Email}).select("-img");
+  res.status(200).json(products);
+}
+
+module.exports={
+    postProd,
+    getprod,
+    getprodByCategory,
+    getprodByVendor
+}
+

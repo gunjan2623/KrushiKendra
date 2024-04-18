@@ -1,10 +1,11 @@
 const jwt =require ('jsonwebtoken')
 const asyncHandler =require('express-async-handler')
 const User = require('../model/UserModel')
+const Vendor = require('../model/VendorModel')
 
 const protect =asyncHandler(async(req,res, next)=>{
     let token
-
+    let isVendor=req.body.isVendor;
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
         try{
             //get token from header
@@ -14,7 +15,12 @@ const protect =asyncHandler(async(req,res, next)=>{
             const decoded =jwt.verify(token,process.env.JWT_SECRET)
 
             //get user from the token
+            if(isVendor){
+                req.user =await Vendor.findById(decoded.id).select('-Password');}
+                
+                else{
             req.user =await User.findById(decoded.id).select('-Password')
+        }
 
             next()
         }catch(error){

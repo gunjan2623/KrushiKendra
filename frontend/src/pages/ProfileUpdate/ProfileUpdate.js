@@ -19,6 +19,7 @@ function ProfileUpdate() {
     MobNo: MobNo,
     UserName: UserName,
     Address: Address,
+    isVendor:user.isVendor,
   }
 
 

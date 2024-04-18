@@ -16,11 +16,12 @@ function ChkPassword() {
     const [message, setMessage] = useState('');
     const [updateDet, setUpdateDet] = useState(false);
     const [forgetPass, setForgetPass] = useState(false);
+    const isVendor=user.isVendor;
 
     const HandlePass = (e) => {
         setIsLoading(true);
         e.preventDefault();
-        axios.post('http://localhost:5000/userpass', { password: password }, {
+        axios.post('http://localhost:5000/userpass', { password: password,isVendor }, {
             headers: {
                 Authorization: `Bearer ${user.token}`
             }
