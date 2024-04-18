@@ -47,10 +47,7 @@ const postProd = async (req, res) => {
 //get all products
 const getprod = async (req, res) => {
   try {
-    const products = await ProductModel.find({})
-      .select("-photo")
-      .limit(12)
-      .sort({ createdAt: -1 });
+    const products = await ProductModel.find({}).select("-photo");
     res.status(200).send({
       success: true,
       countTotal: products.length,

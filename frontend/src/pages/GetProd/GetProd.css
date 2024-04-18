@@ -7,6 +7,12 @@
   --transYend: 0;
 }
 
+.products-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
 .authcontainer {
   display: flex;
   margin: 5rem auto;
