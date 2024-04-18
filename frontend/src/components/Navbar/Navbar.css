@@ -1,0 +1,339 @@
+* {
+  display: border-box;
+}
+.nav {
+  top: 0;
+  width: 100%;
+  /* visibility: hidden;   */
+ 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 100;
+  transition: transform 0.3s ease-in-out;
+}
+.lg {
+  width: 90%;
+  padding: 20px 10px;
+  background-color: rgb(13, 126, 1);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu {
+  width: 90%;
+  margin-bottom: 5px;
+  padding: 0px 10px;
+  background-color: #ece7e2;
+  color: blue;
+}
+.navul {
+  display: flex;
+  list-style: none;
+}
+.navli {
+  margin: 0px 10px;
+  cursor: pointer;
+  padding: 10px 5px;
+}
+.bb {
+  display: flex;
+  flex-direction: column;
+
+  /* background-position: right bottom; */
+}
+.bb1 {
+  text-decoration: none;
+  color: #00005e;
+}
+
+.horz {
+  height: 3px;
+  background-color: #00005e;
+
+  /* transform-origin: left bottom; */
+}
+
+
+
+.icars365 {
+  width: 270px;
+  height: 70px;
+}
+.nav.sticky {
+  position: sticky;
+ 
+}
+.slide {
+  width: 100%;
+  background-color: #ece7e2;
+  height: fit-content;
+}
+/* @keyframes fadeout {
+  0% {
+   opacity: 1;
+  }
+ 100% {
+   opacity: 0;
+  }
+ }
+.navburger{
+  animation: fadeout 3s;
+} */
+.hamburger__toggle {
+  display: none;
+  position: relative;
+  background-color: rgb(0, 0, 94);
+  width: 60px;
+  height: 60px;
+  /* margin:50px auto; */
+  border-radius: 50%;
+  border: none;
+}
+
+/* give the span element and related pseudo-elements the appearance of white lines */
+.hamburger__icon,
+.hamburger__icon::before,
+.hamburger__icon::after {
+  position: absolute;
+  width: 30px;
+  height: 2px;
+  border-radius: 4px;
+  background-color: white;
+}
+
+/* center the span element in the middle of its containing button */
+.hamburger__icon {
+  top: calc(50% - 2px);
+  left: calc(50% - 15px);
+}
+
+/* position the two pseudo-elements to the very left */
+.hamburger__icon::before,
+.hamburger__icon::after {
+  content: "";
+  left: 0;
+}
+
+/* this is the top dash of the hamburger */
+.hamburger__icon::before {
+  bottom: 8px;
+}
+
+/* this is the bottom dash of the hamburger */
+.hamburger__icon::after {
+  top: 8px;
+}
+
+/* TOGGLE STYLES FOR THE BUTTON */
+
+/* rotate middle dash of hamburger */
+.toggled .hamburger__icon {
+  height: 5px;
+  width: 25px;
+  top: calc(50% - 2px);
+  transform: rotate(-45deg);
+  background-color: white;
+}
+
+/* rotate bottom dash of hamburger counter clockwise */
+.toggled .hamburger__icon::after {
+  width: 25px;
+  height: 5px;
+  top: -1px;
+  transform: rotate(-270deg);
+  background-color: white;
+}
+
+/* hide the top dash by scaling it to 0 */
+.toggled .hamburger__icon::before {
+  transform: scale(0);
+}
+
+/* TRANSITION */
+/* adjust duration to see it happen slower */
+.hamburger__icon,
+.hamburger__icon::after {
+  transition: all 0.3s linear;
+}
+.navuserinfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ellipsetext {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 300px;
+}
+.navusericon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 4px solid white;
+  margin-left: 5px;
+}
+.navusersignin {
+  background: #ece7e2;
+  border-radius: 50%;
+}
+.navsignintoast {
+  width: max-content;
+  position: fixed;
+  background: rgb(241, 174, 107);
+  color: black;
+  padding: 2px;
+  border-radius: 5px;
+}
+
+.usermenu {
+  position: absolute;
+  background-color: #ece7e2;
+  height: max-content;
+  padding: 20px 0px;
+  width: 200px;
+  z-index: 101;
+  top: 100px;
+  animation: glow 0.3s linear;
+  color: black;
+  border: 1px solid black;
+  border-radius: 4px;
+
+  > p {
+    margin: 0;
+    padding: 0;
+    padding-left: 5px;
+
+    > span {
+      padding-left: 4px;
+      font-size: smaller;
+      opacity: 0.5;
+    }
+  }
+
+  > ul {
+    margin: 0;
+
+    list-style: none;
+    padding: 0;
+    > li {
+      cursor: pointer;
+      display: flex;
+      font-size: larger;
+      padding: 10px 20px;
+      > a {
+        text-decoration: none;
+        color: black;
+      }
+      > a:hover {
+        color: grey;
+      }
+    }
+    > li:hover {
+      color: grey;
+    }
+  }
+}
+.small-screen {
+  width: 30px;
+  height: 30px;
+  padding-right: 4px;
+  display: flex;
+}
+
+li a {
+  display: flex;
+}
+li a p {
+  margin: 0;
+  padding: 0;
+}
+.usertoast {
+  position: absolute;
+  border-bottom: 17.32px solid rgb(255, 255, 255);
+  /* 17.32 = 10 * 0.866 */
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  z-index: 102;
+  top: 85px;
+  right: 70px;
+  animation: glow 0.3s linear;
+}
+
+@keyframes glow {
+  0% {
+    opacity: 0;
+  }
+  80% {
+    scale: 1.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.navusercross {
+  position: absolute;
+  font-weight: 900;
+  color: black;
+  right: 85px;
+  top: 40px;
+}
+@media screen and (max-width: 440px) {
+  .ellipsetext {
+    display: none;
+  }
+  /* Styles for screens between 360px and 414px */
+  .nav {
+    position: relative;
+  }
+  .lg {
+    width: 100%;
+    padding: 20px 0px;
+  }
+  .navburger {
+    display: inline;
+  }
+  .menu {
+    display: none;
+  }
+
+  .navul {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .navli {
+    margin: 10px;
+    font-size: 20px;
+  }
+  .lg > h2 {
+    display: none;
+  }
+  .usertoast {
+    transform: translateX(30px);
+  }
+  .usermenu {
+    width: 100px;
+    transform: translateX(-30px);
+    font-size: 9px;
+
+    > ul > li {
+      display: inline-flex;
+      font-size: 9px;
+      padding: 5px 0px;
+    }
+  }
+  .small-screen {
+    width: 20px;
+    height: 20px;
+  }
+  .navburger {
+    padding-top: 1em;
+  }
+  .hamburger__toggle {
+    display: block;
+  }
+}

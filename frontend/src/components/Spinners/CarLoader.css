@@ -1,0 +1,139 @@
+:root {
+  --transX: 0px;
+  --transY: 0;
+  --fadetime: 0s;
+}
+
+.loader {
+   position: fixed; 
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  z-index: 1000;
+  width: 100%;
+  height: 100vh;
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  top: 0;
+  backdrop-filter: blur(2px);
+
+}
+
+.spincar {
+  width: 100px;
+  height: 120px;
+}
+
+.wheel {
+  position: fixed;
+  background-color: white;
+  border-radius: 50%;
+  width: 12px;
+  height: 13px;
+  animation: rot 2s linear infinite;
+  &.wone {
+    --transX: -25px;
+    transform: translate(var(--transX), 10px);
+  }
+  &.wtwo {
+    --transX: 26px;
+    transform: translate(var(--transX), 10px);
+  }
+}
+
+@keyframes rot {
+  0% {
+    transform: translate(var(--transX), 10px) rotate(0deg);
+  }
+  100% {
+    transform: translate(var(--transX), 10px) rotate(360deg);
+  }
+}
+
+.cartrail {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  background-color: white;
+  border-radius: 50%;
+  &.cone {
+    width: 5px;
+    height: 5px;
+    --transX: -70px;
+    --transY: 4px;
+    --fadetime: 1.5s;
+    --transstart: -55px;
+
+    /* transform: translate(-55px, var(--transY)); */
+    animation: fade var(--fadetime) linear infinite;
+  }
+
+  &.ctwo {
+    width: 4px;
+    height: 4px;
+    --transX: -67px;
+    --transstart: -45px;
+    --transY: 2px;
+    --fadetime: 1.5s;
+    /* transform: translate(-60px,var(--transY)); */
+    animation: fade var(--fadetime) linear infinite;
+  }
+
+  &.cthree {
+    --transX: -70px;
+    --transY: 5px;
+    --transstart: -40px;
+    --fadetime: 1s;
+    animation: fade var(--fadetime) linear infinite;
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+    transform: translate(var(--transstart), 10px);
+  }
+  45% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(var(--transX), var(--transY));
+  }
+}
+
+.loadspin {
+  position: absolute;
+  color: white;
+  transform: translate(0px, 40px);
+  animation: loadfade 2s linear infinite;
+}
+
+@keyframes loadfade {
+  0% {
+    opacity: 0.5;
+  }
+  45% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+.cartrail {
+  &.lone {
+    transform: translate(40px, 45px);
+    animation: loadfade 3s linear infinite;
+  }
+  &.ltwo {
+    transform: translate(45px, 45px);
+    animation: loadfade 2s linear infinite;
+  }
+  &.lthree {
+    transform: translate(50px, 45px);
+    animation: loadfade 1s linear infinite;
+  }
+}
