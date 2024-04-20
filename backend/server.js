@@ -12,6 +12,7 @@ const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes.js");
 const emailRoutes = require("./routes/emailRoutes.js");
 const productRoutes = require("./routes/productRoutes.js");
+const cartRoutes = require("./routes/cartRoutes.js");
 
 
 
@@ -39,6 +40,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(productRoutes);
 app.use(userRoutes);
 app.use(emailRoutes);
+app.use(cartRoutes);
 
 
 app.use(errorHandler);

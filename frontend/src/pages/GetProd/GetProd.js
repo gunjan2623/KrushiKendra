@@ -5,10 +5,47 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import CarLoader from "../../components/Spinners/CarLoader";
+import {useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 
 function GetProd() {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Add this line
+  const { user } = useSelector((state) => state.auth);
+
+  // handleCart function
+  const handleCart = async (productId) => {
+    try {
+      // Check if user is signed in
+      console.log(user  );
+      const userSignedIn = user; // Replace this with your logic to check if user is signed in
+      if (!userSignedIn) {
+        // Redirect to sign in page
+      navigate('/AuthForm')
+      toast.error("Please sign in to add product to cart");
+        return;
+      }
+
+
+      const response = await axios.post("http://localhost:5000/addtocart", {
+        userId: user._id,
+      productId,
+        quantity: 1,
+       
+      });
+      // Handle the response as needed
+      if(response.data.status===201)
+      toast.success(response.data.message);
+      else if(response.data.status===400)
+      toast.error(response.data.message);
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    }
+  };
+
 
   //getall product
   const getAllProdcuts = async () => {
@@ -56,6 +93,7 @@ function GetProd() {
                 <p className="card-text">{p.Product_price}</p>
                 <p className="card-text">{p.Vendor_address}</p>
                 <p className="card-text">{p.Product_quantity}</p>
+<button onClick={()=>handleCart(p._id)}>Add to cart</button>
               </div>
             </div>
           ))}
