@@ -108,6 +108,7 @@ function GetProd() {
                 <button onClick={() => handleRemoveFromCart(p._id)}>
                   Remove from cart
                 </button>
+
               </div>
             </div>
           ))}
