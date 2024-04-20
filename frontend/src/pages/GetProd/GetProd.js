@@ -93,8 +93,7 @@ function GetProd() {
                 <p className="card-text">{p.Product_price}</p>
                 <p className="card-text">{p.Vendor_address}</p>
                 <p className="card-text">{p.Product_quantity}</p>
-
-                <button onClick={()=>handleCart(p._id)}>Add to cart</button>
+<button onClick={()=>handleCart(p._id)}>Add to cart</button>
               </div>
             </div>
           ))}
